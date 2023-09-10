@@ -1,3 +1,6 @@
+import java.util.Collection;
+import java.util.Collections;
+
 public class DinamicList {
     Node first;
     Node last;
@@ -8,7 +11,7 @@ public class DinamicList {
         last = null;
     }
 
-    public void add(int element) {
+    public void add(Object element) {
         Node newElement = new Node(element);
 
         if (first == null) {
@@ -21,7 +24,7 @@ public class DinamicList {
         count++;
     }
 
-    public void add(int position, int element) {
+    public void add(int position, Object element) {
         Node newElement = new Node(element);
 
         if (position == 0) {
@@ -51,11 +54,11 @@ public class DinamicList {
         count = 0;
     }
 
-    public boolean contains(int element) {
+    public boolean contains(Object element) {
         Node aux = first;
 
         while (aux != null) {
-            if (aux.data == element)
+            if (aux.data.equals(element))
                 return true;
 
             aux = aux.next;
@@ -63,7 +66,7 @@ public class DinamicList {
         return false;
     }
 
-    public void remove(int element) {
+    public void remove(Object element) {
         Node aux = first;
         Node previous = null;
 
@@ -71,12 +74,12 @@ public class DinamicList {
             throw new Error("Empty list!");
 
         while (aux != null) {
-            if (aux.data == element) {
+            if (aux.data.equals(element)) {
                 if (aux == first) {
                     first = aux.next;
                     aux = first;
                     count--;
-                } else if (aux == last) {
+                } else if (aux.equals(last)) {
                     previous.next = null;
                     last = previous;
                     aux = null;
@@ -116,7 +119,7 @@ public class DinamicList {
         count--;
     }
 
-    public int get(int index) {
+    public Object get(int index) {
         if (index > count)
             return -1;
 
@@ -127,10 +130,10 @@ public class DinamicList {
         return aux.data;
     }
 
-    public int indexOf(int element) {
+    public int indexOf(Object element) {
         Node aux = first;
         for (int i = 0; i <= count; i++) {
-            if (aux.data == element)
+            if (aux.data.equals(element))
                 return i;
 
             aux = aux.next;
