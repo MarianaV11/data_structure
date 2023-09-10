@@ -1,12 +1,9 @@
-import java.util.Collection;
-import java.util.Collections;
-
-public class DinamicList {
+public class DynamicList {
     Node first;
     Node last;
     int count;
 
-    public DinamicList() {
+    public DynamicList() {
         first = null;
         last = null;
     }

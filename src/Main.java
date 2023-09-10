@@ -3,16 +3,11 @@ import java.util.Scanner;
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        DinamicList dinamicList = new DinamicList();
+        OrderedDynamicList<Integer> orderedDynamicList = new OrderedDynamicList();
 
-        dinamicList.add(7);
-        dinamicList.add(8);
-        dinamicList.add(10);
-        dinamicList.add(3);
-        dinamicList.add(3);
-        dinamicList.add(2);
-        dinamicList.add(55);
+        orderedDynamicList.add(3);
+        orderedDynamicList.add(7);
 
-        System.out.println(dinamicList);
+        System.out.println(orderedDynamicList.contains(10));
     }
 }

@@ -1,8 +1,8 @@
-public class Node {
-    public Object data;
-    public Node next;
+public class Node <T> {
+    public T data;
+    public Node<T> next;
 
-    public Node(Object dado) {
+    public Node(T dado) {
         this.data = dado;
         next = null;
     }
