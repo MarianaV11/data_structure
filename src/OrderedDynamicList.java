@@ -14,7 +14,6 @@ public class OrderedDynamicList <T> {
 
         Node<T> aux = first;
         Node<T> previous = null;
-
        if (first == null) {
            first = newElement;
            last = newElement;
@@ -149,18 +148,69 @@ public class OrderedDynamicList <T> {
     }
 
     public void remove(Object element) {
+        Node<T> aux = first;
+        Node<T> previous = null;
 
+        while (aux != null) {
+            if (aux.data.equals(element)) {
+                if (first.data.equals(element)) {
+                    first = aux.next;
+                    aux = first;
+                } else if (aux.data.equals(last)) {
+                    previous.next = null;
+                    last = previous;
+                    aux = null;
+                } else {
+                    previous.next = aux.next;
+                }
+                count--;
+            }
+            previous = aux;
+            aux = aux.next;
+        }
     }
 
     public void removeAt(int position) {
+        Node<T> aux = first;
+        Node<T> previous = null;
 
+        if (position == 0) {
+            aux = first.next;
+            first = aux;
+        } else if (position == size() - 1) {
+            for (int i = 0; i < size() - 2; i++) {
+                aux = aux.next;
+            }
+            last = aux;
+            aux.next = null;
+        } else  {
+            for (int i = 0; i < position; i++) {
+                previous = aux;
+                aux = aux.next;
+            }
+            previous.next = aux.next;
+        }
+        count--;
     }
 
     public Object get(int index) {
-        return null;
+        Node<T> aux = first;
+
+        for (int i = 0; i < index; i++) {
+            aux = aux.next;
+        }
+        return aux.data;
     }
 
     public int indexOf(Object element) {
+        Node<T> aux = first;
+
+        for (int i = 0; i < count; i++) {
+            if (aux.data.equals(element)) {
+                return i;
+            }
+            aux = aux.next;
+        }
         return -1;
     }
 
