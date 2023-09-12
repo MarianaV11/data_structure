@@ -18,111 +18,20 @@ public class OrderedDynamicList <T> {
            first = newElement;
            last = newElement;
        } else {
-           if (newElement.data instanceof Integer && aux.data instanceof Integer) {
-               while (aux != null && ((Integer) newElement.data).compareTo((Integer) aux.data) > 0) {
-                   previous = aux;
-                   aux = aux.next;
-               }
-
-               if (previous == null) {
-                   newElement.next = first;
-                   first = newElement;
-               } else if (aux == null) {
-                   last.next = newElement;
-                   last = newElement;
-               } else {
-                   previous.next = newElement;
-                   newElement.next = aux;
-               }
-           }
-           if (newElement.data instanceof String && aux.data instanceof String) {
-               while (aux != null && ((String) newElement.data).compareTo((String) aux.data) > 0) {
-                   previous = aux;
-                   aux = aux.next;
-               }
-
-               if (previous == null) {
-                   newElement.next = first;
-                   first = newElement;
-               } else if (aux == null) {
-                   last.next = newElement;
-                   last = newElement;
-               } else {
-                   previous.next = newElement;
-                   newElement.next = aux;
-               }
+           while (aux != null && newElement.compareTo(aux) > 0) {
+               previous = aux;
+               aux = aux.next;
            }
 
-           if (newElement.data instanceof Double && aux.data instanceof Double) {
-               while (aux != null && ((Double) newElement.data).compareTo((Double) aux.data) > 0) {
-                   previous = aux;
-                   aux = aux.next;
-               }
-
-               if (previous == null) {
-                   newElement.next = first;
-                   first = newElement;
-               } else if (aux == null) {
-                   last.next = newElement;
-                   last = newElement;
-               } else {
-                   previous.next = newElement;
-                   newElement.next = aux;
-               }
-           }
-
-           if (newElement.data instanceof Float && aux.data instanceof Float) {
-               while (aux != null && ((Float) newElement.data).compareTo((Float) aux.data) > 0) {
-                   previous = aux;
-                   aux = aux.next;
-               }
-
-               if (previous == null) {
-                   newElement.next = first;
-                   first = newElement;
-               } else if (aux == null) {
-                   last.next = newElement;
-                   last = newElement;
-               } else {
-                   previous.next = newElement;
-                   newElement.next = aux;
-               }
-           }
-
-           if (newElement.data instanceof Character && aux.data instanceof Character) {
-               while (aux != null && ((Character) newElement.data).compareTo((Character) aux.data) > 0) {
-                   previous = aux;
-                   aux = aux.next;
-               }
-
-               if (previous == null) {
-                   newElement.next = first;
-                   first = newElement;
-               } else if (aux == null) {
-                   last.next = newElement;
-                   last = newElement;
-               } else {
-                   previous.next = newElement;
-                   newElement.next = aux;
-               }
-           }
-
-           if (newElement.data instanceof Boolean && aux.data instanceof Boolean) {
-               while (aux != null && ((Boolean) newElement.data).compareTo((Boolean) aux.data) > 0) {
-                   previous = aux;
-                   aux = aux.next;
-               }
-
-               if (previous == null) {
-                   newElement.next = first;
-                   first = newElement;
-               } else if (aux == null) {
-                   last.next = newElement;
-                   last = newElement;
-               } else {
-                   previous.next = newElement;
-                   newElement.next = aux;
-               }
+           if (previous == null) {
+               newElement.next = first;
+               first = newElement;
+           } else if (aux == null) {
+               last.next = newElement;
+               last = newElement;
+           } else {
+               previous.next = newElement;
+               newElement.next = aux;
            }
        }
        count++;
