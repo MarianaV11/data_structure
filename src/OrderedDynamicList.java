@@ -1,6 +1,6 @@
 public class OrderedDynamicList <T> {
-    Node<T> first;
-    Node<T> last;
+    Node first;
+    Node last;
     int count;
 
     public OrderedDynamicList() {
@@ -10,10 +10,10 @@ public class OrderedDynamicList <T> {
     }
 
     public void add(T element) {
-        Node<T> newElement = new Node(element);
+        Node newElement = new Node(element);
 
-        Node<T> aux = first;
-        Node<T> previous = null;
+        Node aux = first;
+        Node previous = null;
        if (first == null) {
            first = newElement;
            last = newElement;
@@ -137,7 +137,7 @@ public class OrderedDynamicList <T> {
     }
 
     public boolean contains(Object element) {
-        Node<T> aux = first;
+        Node aux = first;
         for(int i = 0; i < count; i++) {
             if (aux.data.equals(element)) {
                 return true;
@@ -148,8 +148,8 @@ public class OrderedDynamicList <T> {
     }
 
     public void remove(Object element) {
-        Node<T> aux = first;
-        Node<T> previous = null;
+        Node aux = first;
+        Node previous = null;
 
         while (aux != null) {
             if (aux.data.equals(element)) {
@@ -171,8 +171,8 @@ public class OrderedDynamicList <T> {
     }
 
     public void removeAt(int position) {
-        Node<T> aux = first;
-        Node<T> previous = null;
+        Node aux = first;
+        Node previous = null;
 
         if (position == 0) {
             aux = first.next;
@@ -194,7 +194,7 @@ public class OrderedDynamicList <T> {
     }
 
     public Object get(int index) {
-        Node<T> aux = first;
+        Node aux = first;
 
         for (int i = 0; i < index; i++) {
             aux = aux.next;
@@ -203,7 +203,7 @@ public class OrderedDynamicList <T> {
     }
 
     public int indexOf(Object element) {
-        Node<T> aux = first;
+        Node aux = first;
 
         for (int i = 0; i < count; i++) {
             if (aux.data.equals(element)) {

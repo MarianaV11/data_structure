@@ -1,58 +1,43 @@
-public class DoubleList <T> {
+public class OrderedDoubleList <T> {
     Node first;
     Node last;
 
     int count;
 
-    public DoubleList() {
+    public OrderedDoubleList() {
         first = null;
         last = null;
     }
 
-    public void addAtBeginning(T element) {
-        Node newElement = new Node(element);
-
-        if (first == null) {
-            first = newElement;
-            last = newElement;
-        } else {
-            newElement.next = first;
-            first.previous = newElement;
-            first = newElement;
-        }
-        count++;
-    }
 
     public void add(T element) {
         Node newElement = new Node(element);
+        Node aux = first;
 
         if (first == null) {
             first = newElement;
             last = newElement;
         } else {
-            last.next = newElement;
-            newElement.previous = last;
-            last = newElement;
-        }
-        count++;
-    }
-
-    public void add(int position, T element) {
-        if (position == 0) {
-            addAtBeginning(element);
-        } else if (position == size() - 1) {
-            add(element);
-        } else {
-            Node aux = first;
-            Node newElement = new Node(element);
-            for (int i = 0; i < position; i++) {
+            while (aux != null && newElement.compareTo(aux) > 0) {
                 aux = aux.next;
             }
-            aux.previous.next = newElement;
-            newElement.previous = aux.previous;
-            newElement.next = aux;
-            aux.previous = newElement;
+
+            if (aux == first) {
+                newElement.next = first;
+                first.previous = newElement;
+                first = newElement;
+            } else if (aux == null) {
+                newElement.previous = last;
+                last.next = newElement;
+                last = newElement;
+            } else {
+                newElement.next = aux;
+                aux.previous.next = newElement;
+                newElement.previous = aux.previous;
+                aux.previous = newElement;
+            }
         }
+        count++;
     }
 
     public int size() {
@@ -67,7 +52,7 @@ public class DoubleList <T> {
     public boolean contains(T element) {
         Node aux = first;
 
-        for (int i = 0; i < count - 1; i++) {
+        for (int i = 0; i < count; i++) {
             if (aux.data.equals(element))
                 return true;
             aux = aux.next;
@@ -119,9 +104,6 @@ public class DoubleList <T> {
     }
 
     public Object get(int index) {
-        if (index > count)
-            return -1;
-
         Node aux = first;
         for (int i = 0; i < index; i++) {
             aux = aux.next;
@@ -129,7 +111,7 @@ public class DoubleList <T> {
         return aux.data;
     }
 
-    public int indexOf(Object element) {
+    public int indexOf(T element) {
         Node aux = first;
 
         for (int i = 0; i < count; i++) {
@@ -142,13 +124,13 @@ public class DoubleList <T> {
 
     @Override
     public String toString() {
-        String str = "[";
+        String str = "";
         Node aux = first;
 
         while (aux != null) {
-            str += " " + aux.data;
+            str += aux.data + " ";
             aux = aux.next;
         }
-        return str + " ]";
+        return str;
     }
 }
