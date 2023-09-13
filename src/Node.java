@@ -1,5 +1,3 @@
-import java.util.concurrent.atomic.DoubleAccumulator;
-
 public class Node implements Comparable<Node> {
     public Object data;
     public Node next;
@@ -27,14 +25,14 @@ public class Node implements Comparable<Node> {
             return -1;
     }
 
-    public int compareToString(Node s) {
+    public int compareStringByLength(Node s) {
         if (data instanceof String && s.data instanceof String) {
             if (((String) data).length() > ((String) s.data).length()) {
                 return 1;
-            } else if (((String) data).length() < ((String) s.data).length()) {
-                return -1;
+            } else if (((String) data).length() == ((String) s.data).length()) {
+                return 0;
             } 
         }
-        return 0;
+        return -1;
     }
 }

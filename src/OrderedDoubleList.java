@@ -18,7 +18,7 @@ public class OrderedDoubleList <T> {
             first = newElement;
             last = newElement;
         } else {
-            while (aux != null && newElement.compareTo(aux) > 0) {
+            while (aux != null && newElement.compareStringByLength(aux) >= 0) {
                 aux = aux.next;
             }
 
@@ -60,17 +60,29 @@ public class OrderedDoubleList <T> {
         return false;
     }
 
+    public boolean containsStringLength(T element) {
+        Node aux = first;
+        Node elementCompare =  new Node(element);
+
+        for (int i = 0; i < count; i++) {
+            if (elementCompare.compareStringByLength(aux) == 0)
+                return true;
+            aux = aux.next;
+        }
+        return false;
+    }
+
     public void remove(T element) {
         Node aux = first;
 
         while (aux != null) {
             if (aux.data.equals(element)) {
-                if (aux.equals(first)) {
+                if (element.equals(first.data)) {
                     first = aux.next;
                     aux = first;
-                } else if (aux.equals(last)) {
-                    last.previous.next = null;
+                } else if (element.equals(last.data)) {
                     last = last.previous;
+                    last.next = null;
                     aux = null;
                 } else {
                     aux.previous.next = aux.next;
@@ -83,14 +95,34 @@ public class OrderedDoubleList <T> {
             }
         }
     }
+    public void removeJustOneElement(T element) {
+        Node aux = first;
+
+        if (element.equals(first.data)) {
+            first = aux.next;
+        } else if (element.equals(last.data)) {
+            last = last.previous;
+            last.next = null;
+        } else {
+            while (!element.equals(aux.data)) {
+                aux = aux.next;
+            }
+            aux.previous.next = aux.next;
+            aux.next.previous = aux.previous;
+        }
+
+        count--;
+    }
 
     public void removeAt(int position) {
         if (position == size() - 1) {
             last.previous.next = null;
             last = last.previous;
+            count--;
         } else if (position == 0) {
             first.next.previous = null;
             first = first.next;
+            count--;
         } else {
             Node aux = first;
 
@@ -100,11 +132,13 @@ public class OrderedDoubleList <T> {
 
             aux.previous.next = aux.next;
             aux.next.previous = aux.previous;
+            count--;
         }
     }
 
     public Object get(int index) {
         Node aux = first;
+
         for (int i = 0; i < index; i++) {
             aux = aux.next;
         }
@@ -124,13 +158,18 @@ public class OrderedDoubleList <T> {
 
     @Override
     public String toString() {
-        String str = "";
         Node aux = first;
 
-        while (aux != null) {
-            str += aux.data + " ";
+        if (aux.data != null) {
+            String str = (String) aux.data;
+
             aux = aux.next;
+            while (aux != null) {
+                str += ", " + aux.data;
+                aux = aux.next;
+            }
+            return str;
         }
-        return str;
+        return (String) first.data;
     }
 }
