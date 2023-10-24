@@ -1,3 +1,7 @@
+package List;
+
+import Node.Node;
+
 public class DoubleList <T> {
     Node first;
     Node last;

@@ -1,35 +1,63 @@
-import java.util.Scanner;
-
-public class Main {
-    public static Scanner scanner = new Scanner(System.in);
-    public static OrderedDynamicList<OrderedDoubleList<String>> creationOfLists(OrderedDynamicList<OrderedDoubleList<String>> list, String world) {
-      if (list != null) {
-          for (int i = 0; i < list.size(); i++) {
-              OrderedDoubleList<String> x = (OrderedDoubleList<String>) list.get(i);
-              if (!x.containsStringLength(world)) {
-                  x.add(world);
-                  list.add(x);
-                  return list;
-              }
-              System.out.println(list);
-          }
-      }
-        list.add(new OrderedDoubleList<>());
-        return creationOfLists(list, world);
-    }
-    public static void main(String[] args) {
-        int n = scanner.nextInt();
-
-        String word;
-        OrderedDynamicList<OrderedDoubleList<String>> aux = new OrderedDynamicList<>();
-        for (int i = 0; i < n; i++) {
-            word = scanner.next();
-            aux = (creationOfLists(new OrderedDynamicList<>(), word));;
-        }
-
-
-        for (int i = 0; i < aux.size(); i++) {
-            System.out.println(aux.get(i));
-        }
-    }
-}
+//import Stack.StaticStack;
+//
+//import java.util.*;
+//
+//public class Main {
+//    public static Scanner input = new Scanner(System.in);
+//
+//    public static String formulaPosfix(char[] formula) {
+//        StaticStack dynamicStackOne = new StaticStack(100);
+//        StaticStack dynamicStackTwo = new StaticStack(100);
+//
+//        for(int i = 0; i < formula.length; i++) {
+//            if(Character.isLetterOrDigit(formula[i])) {
+//                dynamicStackOne.push(formula[i]);
+//            } else if(formula[i] == ')') {
+//                break;
+//            } else if(formula[i] == '(') {
+//                String formulaTwo = formulaPosfix(formula);
+//                dynamicStackOne.push(formulaTwo);
+//            } else {
+//                char dynamicTwo = (Character) dynamicStackTwo.peek();
+//                while(dynamicStackTwo.size() > 0 && connective(formula[i]) <= connective(dynamicTwo)) {
+//                    String aux2 = dynamicStackOne.pop() + "";
+//                    String aux = dynamicStackOne.pop() + "";
+//                    String result = aux + aux2 + dynamicStackTwo.pop();
+//
+//                    dynamicStackOne.push(result);
+//                }
+//                dynamicStackTwo.push(formula[i]);
+//            }
+//        }
+//
+//        for(int i = dynamicStackTwo.size(); i > 0; i--) {
+//            String aux2 = dynamicStackOne.pop() + "";
+//            String aux = dynamicStackOne.pop() + "";
+//            dynamicStackOne.push(aux + aux2 + dynamicStackTwo.pop());
+//        }
+//        return  (String) dynamicStackOne.pop();
+//    }
+//
+//    public static int connective(Character c) {
+//        return switch (c) {
+//            case '^' -> 2;
+//            case '*', '/' -> 1;
+//            case '+', '-' -> 0;
+//            default -> -1;
+//        };
+//    }
+//
+//    public static void main(String[] args) {
+//        int n = Integer.parseInt(input.nextLine());
+//        String finalResult;
+//
+//        for(int i = 0; i < n; i++) {
+//            String formula = input.nextLine();
+//            char []aux = formula.toCharArray();
+//
+//            finalResult = formulaPosfix(aux);
+//
+//            System.out.println(finalResult);
+//        }
+//    }
+//}

@@ -1,45 +1,44 @@
-public class DynamicList {
+package List;
+
+import Node.Node;
+
+public class OrderedDynamicList <T> {
     Node first;
     Node last;
     int count;
 
-    public DynamicList() {
+    public OrderedDynamicList() {
         first = null;
         last = null;
+        count = 0;
     }
 
-    public void add(Object element) {
+    public void add(T element) {
         Node newElement = new Node(element);
 
-        if (first == null) {
-            first = newElement;
-            last = newElement;
-        } else {
-            last.next = newElement;
-            last = newElement;
-        }
-        count++;
-    }
+        Node aux = first;
+        Node previous = null;
+       if (first == null) {
+           first = newElement;
+           last = newElement;
+       } else {
+           while (aux != null && newElement.compareTo(aux) > 0) {
+               previous = aux;
+               aux = aux.next;
+           }
 
-    public void add(int position, Object element) {
-        Node newElement = new Node(element);
-
-        if (position == 0) {
-            newElement.next = first;
-            first = newElement;
-        } else if (position == size()) {
-            add(element);
-        } else {
-            Node aux = first;
-
-            for (int i  = 0; i < position - 1; i++) {
-                aux = aux.next;
-            }
-
-            newElement.next = aux.next;
-            aux.next = newElement;
-        }
-        count++;
+           if (previous == null) {
+               newElement.next = first;
+               first = newElement;
+           } else if (aux == null) {
+               last.next = newElement;
+               last = newElement;
+           } else {
+               previous.next = newElement;
+               newElement.next = aux;
+           }
+       }
+       count++;
     }
 
     public int size() {
@@ -48,16 +47,14 @@ public class DynamicList {
 
     public void clear() {
         first = null;
-        count = 0;
     }
 
     public boolean contains(Object element) {
         Node aux = first;
-
-        while (aux != null) {
-            if (aux.data.equals(element))
+        for(int i = 0; i < count; i++) {
+            if (aux.data.equals(element)) {
                 return true;
-
+            }
             aux = aux.next;
         }
         return false;
@@ -67,29 +64,22 @@ public class DynamicList {
         Node aux = first;
         Node previous = null;
 
-        if (first == null)
-            throw new Error("Empty list!");
-
         while (aux != null) {
             if (aux.data.equals(element)) {
-                if (aux == first) {
+                if (first.data.equals(element)) {
                     first = aux.next;
                     aux = first;
-                    count--;
-                } else if (aux.equals(last)) {
+                } else if (aux.data.equals(last)) {
                     previous.next = null;
                     last = previous;
                     aux = null;
-                    count--;
                 } else {
-                previous.next = aux.next;
-                aux = aux.next;
-                count--;
+                    previous.next = aux.next;
                 }
-            } else {
-                previous = aux;
-                aux = aux.next;
+                count--;
             }
+            previous = aux;
+            aux = aux.next;
         }
     }
 
@@ -117,10 +107,8 @@ public class DynamicList {
     }
 
     public Object get(int index) {
-        if (index > count)
-            return -1;
-
         Node aux = first;
+
         for (int i = 0; i < index; i++) {
             aux = aux.next;
         }
@@ -129,10 +117,11 @@ public class DynamicList {
 
     public int indexOf(Object element) {
         Node aux = first;
-        for (int i = 0; i <= count; i++) {
-            if (aux.data.equals(element))
-                return i;
 
+        for (int i = 0; i < count; i++) {
+            if (aux.data.equals(element)) {
+                return i;
+            }
             aux = aux.next;
         }
         return -1;

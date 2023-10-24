@@ -1,3 +1,5 @@
+package List;
+
 public class StaticList {
     Object []v;
     int count;

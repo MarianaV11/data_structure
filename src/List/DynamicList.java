@@ -1,40 +1,49 @@
-public class OrderedDynamicList <T> {
+package List;
+
+import Node.Node;
+
+public class DynamicList <T> {
     Node first;
     Node last;
     int count;
 
-    public OrderedDynamicList() {
+    public DynamicList() {
         first = null;
         last = null;
-        count = 0;
     }
 
     public void add(T element) {
         Node newElement = new Node(element);
 
-        Node aux = first;
-        Node previous = null;
-       if (first == null) {
-           first = newElement;
-           last = newElement;
-       } else {
-           while (aux != null && newElement.compareTo(aux) > 0) {
-               previous = aux;
-               aux = aux.next;
-           }
+        if (first == null) {
+            first = newElement;
+            last = newElement;
+        } else {
+            last.next = newElement;
+            last = newElement;
+        }
+        count++;
+    }
 
-           if (previous == null) {
-               newElement.next = first;
-               first = newElement;
-           } else if (aux == null) {
-               last.next = newElement;
-               last = newElement;
-           } else {
-               previous.next = newElement;
-               newElement.next = aux;
-           }
-       }
-       count++;
+    public void add(int position, T element) {
+        Node newElement = new Node(element);
+
+        if (position == 0) {
+            newElement.next = first;
+            first = newElement;
+        } else if (position == size()) {
+            add(element);
+        } else {
+            Node aux = first;
+
+            for (int i  = 0; i < position - 1; i++) {
+                aux = aux.next;
+            }
+
+            newElement.next = aux.next;
+            aux.next = newElement;
+        }
+        count++;
     }
 
     public int size() {
@@ -43,39 +52,48 @@ public class OrderedDynamicList <T> {
 
     public void clear() {
         first = null;
+        count = 0;
     }
 
-    public boolean contains(Object element) {
+    public boolean contains(T element) {
         Node aux = first;
-        for(int i = 0; i < count; i++) {
-            if (aux.data.equals(element)) {
+
+        while (aux != null) {
+            if (aux.data.equals(element))
                 return true;
-            }
+
             aux = aux.next;
         }
         return false;
     }
 
-    public void remove(Object element) {
+    public void remove(T element) {
         Node aux = first;
         Node previous = null;
 
+        if (first == null)
+            throw new Error("Empty list!");
+
         while (aux != null) {
             if (aux.data.equals(element)) {
-                if (first.data.equals(element)) {
+                if (aux == first) {
                     first = aux.next;
                     aux = first;
-                } else if (aux.data.equals(last)) {
+                    count--;
+                } else if (aux.equals(last)) {
                     previous.next = null;
                     last = previous;
                     aux = null;
+                    count--;
                 } else {
-                    previous.next = aux.next;
-                }
+                previous.next = aux.next;
+                aux = aux.next;
                 count--;
+                }
+            } else {
+                previous = aux;
+                aux = aux.next;
             }
-            previous = aux;
-            aux = aux.next;
         }
     }
 
@@ -103,21 +121,22 @@ public class OrderedDynamicList <T> {
     }
 
     public Object get(int index) {
-        Node aux = first;
+        if (index > count)
+            return -1;
 
+        Node aux = first;
         for (int i = 0; i < index; i++) {
             aux = aux.next;
         }
         return aux.data;
     }
 
-    public int indexOf(Object element) {
+    public int indexOf(T element) {
         Node aux = first;
-
-        for (int i = 0; i < count; i++) {
-            if (aux.data.equals(element)) {
+        for (int i = 0; i <= count; i++) {
+            if (aux.data.equals(element))
                 return i;
-            }
+
             aux = aux.next;
         }
         return -1;

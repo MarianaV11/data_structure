@@ -1,3 +1,7 @@
+package List;
+
+import Node.Node;
+
 public class OrderedDoubleList <T> {
     Node first;
     Node last;
@@ -18,7 +22,7 @@ public class OrderedDoubleList <T> {
             first = newElement;
             last = newElement;
         } else {
-            while (aux != null && newElement.compareStringByLength(aux) >= 0) {
+            while (aux != null && newElement.compareTo(aux) >= 0) {
                 aux = aux.next;
             }
 
@@ -158,18 +162,25 @@ public class OrderedDoubleList <T> {
 
     @Override
     public String toString() {
+        String str = "";
         Node aux = first;
-
-        if (aux.data != null) {
-            String str = (String) aux.data;
-
+//
+//        if (aux.data != null) {
+//            String str = (String) aux.data;
+//
+//            aux = aux.next;
+//            while (aux != null) {
+//                str += ", " + aux.data;
+//                aux = aux.next;
+//            }
+//            return str;
+//        }
+//        return (String) first.data;
+//    }
+        while (aux != null) {
+            str += aux.data + "\n";
             aux = aux.next;
-            while (aux != null) {
-                str += ", " + aux.data;
-                aux = aux.next;
-            }
-            return str;
         }
-        return (String) first.data;
+        return str;
     }
 }

@@ -1,13 +1,22 @@
+package Node;
+
 public class Node implements Comparable<Node> {
     public Object data;
     public Node next;
     public Node previous;
-
+    public int priority;
     public Node(Object dado) {
         this.data = dado;
         previous = null;
         next = null;
     }
+    public Node(Object dado, int priority) {
+        this.data = dado;
+        previous = null;
+        next = null;
+        this.priority = priority;
+    }
+
 
     @Override
     public int compareTo(Node o) {
