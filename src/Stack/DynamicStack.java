@@ -44,21 +44,21 @@ public class DynamicStack <T> {
     }
 
     public Object pop() {
+        Object aux = top.data;
         if (top.next == null && top.previous == null) {
-            Node aux = top;
             top = null;
-            count--;
-            return aux.data;
         } else {
             top = top.previous;
             top.next = null;
-            count--;
         }
-        return top.data;
+        count--;
+        return aux;
     }
 
     public Object peek() {
-        return top.data;
+        if (top != null)
+            return top.data;
+        return null;
     }
 
     public int indexOf(T element) {
