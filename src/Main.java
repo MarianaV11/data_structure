@@ -1,68 +1,28 @@
-import java.util.*;
-import Stack.DynamicStack;
+import Tree.SearchTree;
+
 public class Main {
-    public static int position = 0;
-    public static Scanner input = new Scanner(System.in);
-    public static String formulaPosfix(char[] formula) {
-        DynamicStack dynamicStackOne = new DynamicStack<>();
-        DynamicStack dynamicStackTwo = new DynamicStack<>();
-
-        while (position < formula.length) {
-            if(Character.isLetterOrDigit(formula[position])) {
-                dynamicStackOne.push(formula[position]+"");
-                position++;
-            } else if (formula[position] == '(') {
-                position++;
-                String aux = formulaPosfix(formula);
-                dynamicStackOne.push(aux);
-            } else if(formula[position] == ')') {
-                position++;
-                break;
-            } else {
-                while(dynamicStackTwo.size() > 0 && connective(formula[position]) <= connective((Character)
-                        dynamicStackTwo.peek())) {
-                    String aux2 = dynamicStackOne.pop() + "";
-                    String aux = dynamicStackOne.pop() + "";
-                    String result = aux + aux2 + dynamicStackTwo.pop();
-
-                    dynamicStackOne.push(result);
-                }
-                dynamicStackTwo.push(formula[position]);
-                position++;
-            }
-        }
-
-        while (dynamicStackTwo.size() > 0) {
-            String operand2 = dynamicStackOne.pop() + "";
-            String operand1 = dynamicStackOne.pop() + "";
-            String result = operand1 + operand2 + dynamicStackTwo.pop();
-            dynamicStackOne.push(result);
-        }
-
-        return  (String) dynamicStackOne.pop();
-    }
-
-    public static int connective(Character c) {
-        return switch (c) {
-            case '^' -> 2;
-            case '*', '/' -> 1;
-            case '+', '-' -> 0;
-            default -> -1;
-        };
-    }
-
     public static void main(String[] args) {
-        int n = input.nextInt();
-        input.nextLine();
-        String finalResult;
+        SearchTree arvore = new SearchTree();
 
-        for(int i = 0; i < n; i++) {
-            String formula = input.nextLine();
-            char []aux = formula.toCharArray();
-            position = 0;
-            finalResult = formulaPosfix(aux);
+        arvore.add(7);
+        arvore.add(5);
+        arvore.add(12);
+        arvore.add(2);
+        arvore.add(6);
+        arvore.add(9);
+        arvore.add(21);
+        arvore.add(19);
+        arvore.add(25);
 
-            System.out.println(finalResult);
-        }
+        arvore.displayPreOrder();
+        arvore.displayInOrder();
+        arvore.displayPostOrder();
+
+        System.out.println(arvore.research(9));
+        System.out.println(arvore.research(10));
+
+        arvore.remove(9);
+
+        System.out.println(arvore.research(9));
     }
 }
